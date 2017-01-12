@@ -32,7 +32,7 @@ data <- raw %>%
 #   xlab("Benzene Concentration (ppb)") +
 #   ylab("Frequency")
 
-# plotting this with months
+# Calculating Exceedances
 Exceedances <- data %>% 
   mutate(TCEQ = ifelse(Conc < limit[1], 0, 1),   # Here we create a column called TCEQ that is 1 if exceeds, 0 if not
          EPA = ifelse(Conc < limit[2], 0, 1),    # Same but for thr EPA limit
@@ -51,7 +51,7 @@ Exceedances %>%
   ggtitle("Houston Benzene Regulatory Limit Exceedances by Site and Regulatory Agency")
 
 # THis is where I cacluate the average values
-Avg_Vals <- data %>% 
+Avg_Vals <- data %>%                        
   mutate(Year = factor(Year)) %>%         
   group_by(Year, Monitor) %>%    
   summarise(Average = mean(Conc, na.rm = T)) 
